@@ -14,6 +14,7 @@ public class Message {
 	
 	private String message;
 	private String time;
+	
 	public String getMessage() {
 		return message;
 	}
@@ -26,9 +27,9 @@ public class Message {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public Message(String message, String time) {
+	public Message(String text, String time) {
 		super();
-		this.message = message;
+		this.message = text;
 		this.time = time;
 	}
 	public Message(String htmlEscape) {
