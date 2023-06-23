@@ -23,18 +23,17 @@ public class StreamingServiceImpl implements StreamingService {
 	StreamingRepository repository;
 	
 	public Message communicate(Message message) {
+//		Message message2;
 		int palindrom_len=longestPalSubstr(message.getMessage());
-		System.out.println(palindrom_len);
-		StreamEntity entity=new StreamEntity();
-		Timestamp instant= Timestamp.from(Instant.now());  
-		String s1=String.valueOf(instant);
-		System.out.println("date is "+s1);
-		entity.setDate(s1);
+		StreamEntity entity= new StreamEntity();
+		entity.setDate(message.getTime());
 		entity.setText(message.getMessage());
-//		entity.setLongest_palindrom_length(palindrom_len);
-//		repository.save(entity);
+		entity.setLongest_palindrom_length(palindrom_len);
+		repository.save(entity);
+		System.out.println("saved entry is : "+entity);
+//		message2 = message;
+		return message;		
 		
-		return new Message(message.getMessage());
 	}
 	
 	

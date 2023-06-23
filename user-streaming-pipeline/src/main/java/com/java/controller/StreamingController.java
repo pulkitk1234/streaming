@@ -18,21 +18,16 @@ public class StreamingController {
 	@Autowired
 	private KafkaTemplate<String, Object> template;
 	
-	private String topic = "javatechie";
+	private String topic = "stream1";
 	
 	@GetMapping("/get")
 	public Message newF(@RequestBody Message message) {
 		
 		StreamEntity entity=new StreamEntity();
-		Timestamp instant= Timestamp.from(Instant.now());  
-		String s1=String.valueOf(instant);
-		System.out.println("date is "+s1);
-		entity.setDate(s1);
+		entity.setDate(message.getTime());
 		entity.setText(message.getMessage());
-//		entity.setLongest_palindrom_length(palindrom_len);
-//		repository.save(entity);
-		template.send(topic, entity);
-		return new Message(message.getMessage());
+		template.send(topic, message);
+		return new Message(message.getMessage(),message.getTime());
 	}
 
 }

@@ -1,26 +1,44 @@
 package com.java.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.model.Message;
 import com.java.model.StreamEntity;
+import com.java.repository.StreamingRepository;
+import com.java.service.StreamingService;
 
 @RestController
 public class StreamingConsumer {
 	
-	StreamEntity message2;
+//	Message message2;
+//	
+//	@Autowired
+//	StreamingRepository repository;
 	
-	@GetMapping("/consume")
-	public StreamEntity consumed() {
-		return message2;
-	}
+	@Autowired
+	StreamingService service;
 	
-	@KafkaListener(groupId = "javatechie-2", topics = "javatechie", containerFactory = "userKafkaListenerContainerFactory")
-	public StreamEntity getJsonMsgFromTopic(StreamEntity message) {
-		message2 = message;
-		return message2;
+//	@GetMapping("/consume")
+//	public Message consumed() {
+//		return message2;
+//	}
+	
+	@KafkaListener(groupId = "group-1", topics = "stream1", containerFactory = "userKafkaListenerContainerFactory")
+	public Message getJsonMsgFromTopic(Message message) {
+		
+		return service.communicate(message);
+		
+//		StreamEntity entity= new StreamEntity();
+//		entity.setDate(message.getTime());
+//		entity.setText(message.getMessage());
+//		entity.setLongest_palindrom_length(2);
+//		repository.save(entity);
+//		System.out.println("saved entry is : "+entity);
+//		message2 = message;
+//		return message2;
 	}
 
 }
