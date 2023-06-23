@@ -8,18 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.java.model.Message;
 import com.java.model.StreamEntity;
 import com.java.repository.StreamingRepository;
-import com.java.service.StreamingService;
-
+import com.java.service.StreamingServiceConsumer;
+import java.util.*;
 @RestController
 public class StreamingConsumer {
 	
-//	Message message2;
-//	
-//	@Autowired
-//	StreamingRepository repository;
 	
 	@Autowired
-	StreamingService service;
+	StreamingServiceConsumer service;
 	
 //	@GetMapping("/consume")
 //	public Message consumed() {
@@ -31,14 +27,11 @@ public class StreamingConsumer {
 		
 		return service.communicate(message);
 		
-//		StreamEntity entity= new StreamEntity();
-//		entity.setDate(message.getTime());
-//		entity.setText(message.getMessage());
-//		entity.setLongest_palindrom_length(2);
-//		repository.save(entity);
-//		System.out.println("saved entry is : "+entity);
-//		message2 = message;
-//		return message2;
+	}
+	
+	@GetMapping("/getEntries")
+	public List<StreamEntity> findAllEntries(){
+		return service.findAllEntries();
 	}
 
 }

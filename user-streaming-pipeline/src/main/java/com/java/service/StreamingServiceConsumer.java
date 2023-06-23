@@ -8,10 +8,10 @@ import com.java.model.Message;
 import com.java.model.StreamEntity;
 
 @Service
-public interface StreamingService {
+public interface StreamingServiceConsumer {
 
 	Message communicate(Message message);
 
-	List<StreamEntity> getALlMessages();
+	List<StreamEntity> findAllEntries();
 
 }

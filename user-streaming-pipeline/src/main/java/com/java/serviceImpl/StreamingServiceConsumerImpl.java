@@ -12,18 +12,17 @@ import org.springframework.stereotype.Service;
 import com.java.model.Message;
 import com.java.model.StreamEntity;
 import com.java.repository.StreamingRepository;
-import com.java.service.StreamingService;
+import com.java.service.StreamingServiceConsumer;
 
 @Service
-public class StreamingServiceImpl implements StreamingService {
+public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 	
-//	@Autowired
-//	StreamEntity entity;
+
 	@Autowired
 	StreamingRepository repository;
 	
 	public Message communicate(Message message) {
-//		Message message2;
+
 		int palindrom_len=longestPalSubstr(message.getMessage());
 		StreamEntity entity= new StreamEntity();
 		entity.setDate(message.getTime());
@@ -31,7 +30,7 @@ public class StreamingServiceImpl implements StreamingService {
 		entity.setLongest_palindrom_length(palindrom_len);
 		repository.save(entity);
 		System.out.println("saved entry is : "+entity);
-//		message2 = message;
+
 		return message;		
 		
 	}
@@ -79,8 +78,8 @@ public class StreamingServiceImpl implements StreamingService {
 
 
 	@Override
-	public List<StreamEntity> getALlMessages() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<StreamEntity> findAllEntries() {
+		
+		return repository.findAll();
 	}
 }
