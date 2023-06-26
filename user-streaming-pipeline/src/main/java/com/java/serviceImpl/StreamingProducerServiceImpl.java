@@ -17,20 +17,20 @@ public class StreamingProducerServiceImpl implements StreamingProducerService {
 	private String topic = "stream1";
 	
 	@Override
-	public Message produceMessage(Message message) throws Exception {
+	public Message produceMessage(Message message) {
 		StreamEntity entity = new StreamEntity();
 	    
-	    	
-	    	if(!message.getMessage().isBlank() && message.getTime().length()!=0) {
-	    		 entity.setText(message.getMessage());
-	    		 entity.setDate(message.getTime());
-	    		 template.send(topic, message);
-	    	}
-	    	else {
-	    		throw new Exception("add some");
-	    	}
-	              
-	        return message;
+//	    	
+//	    	if(!message.getMessage().isBlank() && message.getTime().length()!=0) {
+//	    		 entity.setText(message.getMessage());
+//	    		 entity.setDate(message.getTime());
+//	    		 template.send(topic, message);
+//	    	}
+		entity.setText(message.getMessage());
+		entity.setDate("demo");
+		template.send(topic, message);
+		
+	    return message;
 	   
 	}
 
