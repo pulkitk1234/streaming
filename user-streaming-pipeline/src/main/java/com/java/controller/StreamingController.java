@@ -23,9 +23,10 @@ public class StreamingController {
 	@MessageMapping("/stream")
 	@SendTo("/topic/streaming")
 	public Message produceMessage(@RequestBody Message message) throws Exception {
+		System.out.println("received messag is: "+message);
 		return producerService.produceMessage(message);
 	}
-//	
+	
 //	 @MessageMapping("/stream")
 //	 @SendTo("/topic/streaming")
 //	 public String greet(String message) throws InterruptedException {
