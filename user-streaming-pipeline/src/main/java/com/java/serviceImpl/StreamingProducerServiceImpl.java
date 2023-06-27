@@ -28,7 +28,7 @@ public class StreamingProducerServiceImpl implements StreamingProducerService {
 //	    	}
 		entity.setText(message.getMessage());
 		entity.setDate("demo");
-//		template.send(topic, message);
+		template.send(topic, message);
 		
 	    return message;
 	   
