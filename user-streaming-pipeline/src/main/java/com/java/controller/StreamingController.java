@@ -26,7 +26,7 @@ public class StreamingController {
 		System.out.println("received messag is: "+message);
 		return producerService.produceMessage(message);
 	}
-//	
+	
 //	 @MessageMapping("/stream")
 //	 @SendTo("/topic/streaming")
 //	 public String greet(String message) throws InterruptedException {
