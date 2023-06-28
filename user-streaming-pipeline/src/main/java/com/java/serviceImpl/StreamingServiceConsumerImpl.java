@@ -45,19 +45,25 @@ public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 			
 			// validating the message received
 			if (!message.getMessage().get().isBlank()) {
+				
 				palindrom_len = longestPalSubstr(message.getMessage().get());        
 				entity.setDate(message.getTime().get());
 				entity.setText(message.getMessage().get());
 				entity.setLongest_palindrom_length(palindrom_len);
-				repository.save(entity);
 				logger.info("Saved entry is: " + entity);
+				
+				repository.save(entity);
+				
+				
 			} 
 			else {
 				throw new EmptyMessageException("Message is not present");
 			}
 		} 
 		catch (Exception e) {
+			
 			e.printStackTrace();
+		
 		}
 
 		return message;
