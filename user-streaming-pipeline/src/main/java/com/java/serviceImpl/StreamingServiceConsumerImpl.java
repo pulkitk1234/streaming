@@ -1,9 +1,12 @@
 package com.java.serviceImpl;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,8 @@ import com.java.service.StreamingServiceConsumer;
 public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 	
 
+	Logger logger = LoggerFactory.getLogger(StreamingServiceConsumerImpl.class);
+	
 	@Autowired
 	StreamingRepository repository;
 	
@@ -45,7 +50,7 @@ public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 				entity.setText(message.getMessage().get());
 				entity.setLongest_palindrom_length(palindrom_len);
 				repository.save(entity);
-				System.out.println("Saved entry is: " + entity);
+				logger.info("Saved entry is: " + entity);
 			} 
 			else {
 				throw new EmptyMessageException("Message is not present");
