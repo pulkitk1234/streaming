@@ -8,6 +8,7 @@ import com.java.exception.EmptyMessageException;
 import com.java.model.Message;
 import com.java.model.StreamEntity;
 import com.java.service.StreamingProducerService;
+import org.springframework.beans.factory.annotation.Value;
 
 @Service
 public class StreamingProducerServiceImpl implements StreamingProducerService {
@@ -15,7 +16,8 @@ public class StreamingProducerServiceImpl implements StreamingProducerService {
 	@Autowired
 	private KafkaTemplate<String, Object> template;
 
-	private String topic = "stream1";
+	@Value("${topic}")
+    private String topic;
 	
 	
 	/*
