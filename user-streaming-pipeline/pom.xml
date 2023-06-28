@@ -102,6 +102,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>spring-boot-streaming</finalName>
 	</build>
 	<repositories>
 		<repository>
