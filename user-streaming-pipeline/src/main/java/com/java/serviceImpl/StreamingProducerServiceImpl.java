@@ -17,24 +17,25 @@ public class StreamingProducerServiceImpl implements StreamingProducerService {
 
 	private String topic = "stream1";
 	
+	
+	/*
+	 * This function returns the message object received from frontend via websocket.
+	 * It also send the received message to kafka topic for further processing.
+	 */
 	@Override
 	public Message produceMessage(Message message) {
-		StreamEntity entity = new StreamEntity();
-	    
-	    	
-	    	if(!message.getMessage().isBlank() && message.getTime().length()!=0) {	    		 entity.setText(message.getMessage());
-	    		 entity.setDate(message.getTime());
+		
+
+	    	 //validate message received   	
+	    	if(!message.getMessage().get().isBlank() && message.getTime().get().length()!=0) {	 
 	    		 template.send(topic, message);
 	    	}
-	    	else if(message.getMessage().isBlank()) {
+	    	else if(message.getMessage().get().isBlank()) {
 	    		throw new EmptyMessageException("message cannot be empty or blank");
 	    	}
 	    	else {
 	    		throw new EmptyMessageException("timestamp is not presnt");
 	    	}
-		entity.setText(message.getMessage());
-		entity.setDate("demo");
-		template.send(topic, message);
 		
 	    return message;
 	   

@@ -1,5 +1,7 @@
 package com.java.model;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 
 //
@@ -16,14 +18,14 @@ public class Message {
 	private String message;
 	private String time;
 	
-	public String getMessage() {
-		return message;
+	public Optional<String> getMessage() {
+		return Optional.ofNullable(message);
 	}
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public String getTime() {
-		return time;
+	public Optional<String> getTime() {
+		return Optional.ofNullable(time);
 	}
 	public void setTime(String time) {
 		this.time = time;
@@ -35,7 +37,6 @@ public class Message {
 	}
 	public Message(String htmlEscape) {
 		this.message=htmlEscape;
-		// TODO Auto-generated constructor stub
 	}
 	public Message() {
 		super();

@@ -1,10 +1,6 @@
 package com.java.serviceImpl;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +14,7 @@ import com.java.model.StreamEntity;
 import com.java.repository.StreamingRepository;
 import com.java.service.StreamingServiceConsumer;
 
+
 @Service
 public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 	
@@ -25,22 +22,36 @@ public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 	@Autowired
 	StreamingRepository repository;
 	
+	
+	/**
+	  * This function act as a consumer for kafka topic.
+	  *This will process the data and store it in databse.
+	  * @RequestBody Message-received from kafka topic
+	  * @return Message
+	  */
 	public Message communicate(Message message) {
+		//object to store in db
 		StreamEntity entity = new StreamEntity();
+		
+		// to store longest pallindroming length.
 		int palindrom_len;
+		
 		try {
-
-			if (!message.getMessage().isBlank()) {
-				palindrom_len = longestPalSubstr(message.getMessage());        
-				entity.setDate(message.getTime());
-				entity.setText(message.getMessage());
+			
+			// validating the message received
+			if (!message.getMessage().get().isBlank()) {
+				palindrom_len = longestPalSubstr(message.getMessage().get());        
+				entity.setDate(message.getTime().get());
+				entity.setText(message.getMessage().get());
 				entity.setLongest_palindrom_length(palindrom_len);
 				repository.save(entity);
 				System.out.println("Saved entry is: " + entity);
-			} else {
+			} 
+			else {
 				throw new EmptyMessageException("Message is not present");
 			}
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -49,6 +60,11 @@ public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 	}
 	
 	
+	/**
+	  * This function calculates longest pallindromic length.
+	  * @param str
+	  * @return longest pallindromic length of str
+	  */
 	 int longestPalSubstr(String str)
 	{
 		 System.out.println("this is "+ str);
@@ -90,6 +106,9 @@ public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 	}
 
 
+	 /**
+	  * This function returns all the entries persisted in db by consumer.
+	  */
 	@Override
 	public List<StreamEntity> findAllEntries() {
 		List<StreamEntity> entryList = new ArrayList<StreamEntity>();

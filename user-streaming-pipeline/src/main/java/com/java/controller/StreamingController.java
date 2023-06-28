@@ -18,19 +18,16 @@ public class StreamingController {
 	@Autowired
 	StreamingProducerService producerService;
 	
-	
-//	@GetMapping("/get")
+	/**
+	* @author Pulkit kaushik
+	* @version 1.0
+	*/
 	@MessageMapping("/stream")
 	@SendTo("/topic/streaming")
 	public Message produceMessage(@RequestBody Message message) throws Exception {
-		System.out.println("received messag is: "+message);
+//		System.out.println("received messag is: "+message);
 		return producerService.produceMessage(message);
 	}
-	
-//	 @MessageMapping("/stream")
-//	 @SendTo("/topic/streaming")
-//	 public String greet(String message) throws InterruptedException {
-//	        return message;
-//	    }
+
 
 }

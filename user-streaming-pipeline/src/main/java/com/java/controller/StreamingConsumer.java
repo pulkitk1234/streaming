@@ -17,11 +17,11 @@ public class StreamingConsumer {
 	@Autowired
 	StreamingServiceConsumer service;
 	
-//	@GetMapping("/consume")
-//	public Message consumed() {
-//		return message2;
-//	}
 	
+	/**
+	* @author Pulkit kaushik
+	* @version 1.0
+	*/
 	@KafkaListener(groupId = "group-1", topics = "stream1", containerFactory = "userKafkaListenerContainerFactory")
 	public Message getJsonMsgFromTopic(Message message) {
 		
