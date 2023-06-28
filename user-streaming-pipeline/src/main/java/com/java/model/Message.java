@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 
 @Component
 @Data
-//@AllArgsConstructor
-//@NoArgsConstructor
 public class Message {
 	
 	private String message;
