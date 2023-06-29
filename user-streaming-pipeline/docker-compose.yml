@@ -11,4 +11,15 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CREATE_TOPICS: "stream1"
+      KAFKA_CREATE_TOPICS: "stream1" 
+  postgres:
+    image: postgres:latest
+    container_name: postgres-container
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pulkit@98
+    volumes:
+      - ./data:/var/lib/postgresql/data

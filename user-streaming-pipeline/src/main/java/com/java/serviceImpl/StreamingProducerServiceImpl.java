@@ -35,13 +35,16 @@ public class StreamingProducerServiceImpl implements StreamingProducerService {
 
 		try {
 			//validate message received  
-			if (!message.getMessage().get().isBlank() && message.getTime().get().length() != 0) {    
+			if (!message.getMessage().get().isBlank() && validInput(message.getMessage().get()) && message.getTime().get().length() != 0) {    
 				logger.info("message: " + message);
 				template.send(topic, message);
 			} 
 			else if (message.getMessage().get().isBlank()) {
 				throw new EmptyMessageException("message cannot be empty or blank");
 			} 
+			else if(!validInput(message.getMessage().get())) {
+				throw new EmptyMessageException("message can only contain alphabets not any other characters");
+			}
 			else {
 				throw new EmptyMessageException("timestamp is not present");
 			}
@@ -53,6 +56,12 @@ public class StreamingProducerServiceImpl implements StreamingProducerService {
 
 		return message;
 
+	}
+	
+	public boolean validInput(String str) {
+	    
+		return str.chars()
+	            .allMatch(Character::isLetter);
 	}
 
 
