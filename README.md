@@ -20,3 +20,6 @@ Follow the steps below to get started with the application:
 ## Stopping the Docker Container
 
 To stop the container, run the following command:
+    ```
+     docker compose -f docker-compose.yml down
+     ```
