@@ -2,6 +2,12 @@
 
 This application enables us to establish a two-way connection using WebSocket. Additionally, it uses Kafka for message delivery to calculate the longest palindromic length of the message and persist the data in the database.
 
+Quick guide for kafka: 
+    ```
+     https://kafka.apache.org/quickstart
+     ```
+
+
 ## Getting Started
 
 Follow the steps below to get started with the application:
