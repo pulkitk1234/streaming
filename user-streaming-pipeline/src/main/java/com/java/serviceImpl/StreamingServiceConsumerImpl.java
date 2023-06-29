@@ -38,6 +38,8 @@ public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 		//object to store in db
 		StreamEntity entity = new StreamEntity();
 		
+		
+		
 		// to store longest pallindroming length.
 		int palindrom_len;
 		
@@ -46,7 +48,9 @@ public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 			// validating the message received
 			if (!message.getMessage().get().isBlank()) {
 				
-				palindrom_len = longestPalSubstr(message.getMessage().get());        
+				StringBuffer str=new StringBuffer(message.getMessage().get());
+				String reverse=str.reverse().toString();
+				palindrom_len = longestPalSubstr(message.getMessage().get(),reverse,message.getMessage().get().length(),reverse.length());        
 				entity.setDate(message.getTime().get());
 				entity.setText(message.getMessage().get());
 				entity.setLongest_palindrom_length(palindrom_len);
@@ -76,46 +80,32 @@ public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 	  * @param str
 	  * @return longest pallindromic length of str
 	  */
-	 int longestPalSubstr(String str)
-	{
-		 System.out.println("this is "+ str);
-		 // Length of given string
-		 int n = str.length();
-
-		 // Stores the maximum length
-		 int maxLength = 1, start = 0;
-
-		 // Iterate over the string
-		 for(int i = 0; i < str.length(); i++)
-		 {
-
-			 // Iterate over the string
-			 for(int j = i; j < str.length(); j++)
-			 {
-				 int flag = 1;
-
-				 // Check for palindrome
-				 for(int k = 0;
-						 k < (j - i + 1) / 2; k++)
-					 if (str.charAt(i + k) !=
-					 str.charAt(j - k))
-						 flag = 0;
-
-				 // If string [i, j - i + 1]
-				 // is palindromic
-				 if (flag != 0 &&
-						 (j - i + 1) > maxLength)
-				 {
-					 start = i;
-					 maxLength = j - i + 1;
-				 }
-			 }
-		 }
-
-	    // Return length of LPS
-	    return maxLength;
-	}
-
+	int longestPalSubstr(String S1, String S2, int n, int m){
+	    
+        int[][] t= new int[n+1][m+1];
+        int res=0;
+        
+        for(int i=0;i<=n;i++){
+            for(int j=0;j<=m;j++){
+                if(i==0 || j==0){
+                    t[i][j]=0;
+                }
+            }
+        }
+        
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=m;j++){
+                if(S1.charAt(i-1)==S2.charAt(j-1)){
+                    t[i][j]=1+t[i-1][j-1];
+                }
+                else{
+                    t[i][j]=0;
+                }
+                res=Math.max(res,t[i][j]);
+            }
+        }
+        return res;
+    }
 
 	 /**
 	  * This function returns all the entries persisted in db by consumer.
