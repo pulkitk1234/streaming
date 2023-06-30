@@ -1,4 +1,6 @@
 package com.java.serviceImpl;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.java.controller.StreamingController;
 import com.java.exception.EmptyMessageException;
+import com.java.model.AppConstants;
 import com.java.model.Message;
 import com.java.model.StreamEntity;
 import com.java.service.StreamingProducerService;
@@ -40,13 +43,13 @@ public class StreamingProducerServiceImpl implements StreamingProducerService {
 				template.send(topic, message);
 			} 
 			else if (message.getMessage().get().isBlank()) {
-				throw new EmptyMessageException("message cannot be empty or blank");
+				throw new EmptyMessageException(AppConstants.EMPTY_MESSAGE);
 			} 
 			else if(!validInput(message.getMessage().get())) {
-				throw new EmptyMessageException("message can only contain alphabets not any other characters");
+				throw new EmptyMessageException(AppConstants.INVALID_MESSAGE);
 			}
 			else {
-				throw new EmptyMessageException("timestamp is not present");
+				throw new EmptyMessageException(AppConstants.EMPTY_TIMESTAMP);
 			}
 		} 
 		catch (Exception e) {
@@ -59,7 +62,7 @@ public class StreamingProducerServiceImpl implements StreamingProducerService {
 	}
 	
 	public boolean validInput(String str) {
-	    
+		    
 		return str.chars()
 	            .allMatch(Character::isLetter);
 	}

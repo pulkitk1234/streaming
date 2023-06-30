@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.java.exception.EmptyListException;
 import com.java.exception.EmptyMessageException;
+import com.java.model.AppConstants;
 import com.java.model.Message;
 import com.java.model.StreamEntity;
 import com.java.repository.StreamingRepository;
@@ -61,7 +62,7 @@ public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 				
 			} 
 			else {
-				throw new EmptyMessageException("Message is not present");
+				throw new EmptyMessageException(AppConstants.EMPTY_MESSAGE);
 			}
 		} 
 		catch (Exception e) {
@@ -115,9 +116,10 @@ public class StreamingServiceConsumerImpl implements StreamingServiceConsumer {
 		List<StreamEntity> entryList = new ArrayList<StreamEntity>();
 
 		try {			
-			entryList=repository.findAll().stream().collect(Collectors.toList());			
+		    entryList=repository.findAll().stream().collect(Collectors.toList());	
+		    
 			if (entryList.isEmpty()) {	    	
-				throw new EmptyListException("No entry found in the database or Check your db connection!!");		   
+				throw new EmptyListException(AppConstants.NO_RECORDS);		   
 			}
 
 		} 

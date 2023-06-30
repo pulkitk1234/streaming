@@ -43,12 +43,10 @@ function sendName() {
     }
     stompClient.send("/app/stream", {}, JSON.stringify(data));
 }
-// function sendName() {
-//     stompClient.send("/app/stream", {}, JSON.stringify({'message': $("#message").val()}));
-// }
+
 
 function showGreeting({message,time}) {
-    $("#greetings").append("<tr><td>" + message +'   ' +time + "</td></tr>");
+    $("#greetings").append("<tr><td>" + message +'     ' +time + "</td></tr>");
     console.log("my message " ,message)
 }
 
